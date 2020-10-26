@@ -19,7 +19,7 @@ public class BookBean
         return new BookBean(ThreadLocalRandom.current().nextInt(20) + 1 + "", name, author, year);
     }
 
-    private BookBean()
+    public BookBean()
     {
     }
 

@@ -1,10 +1,15 @@
 package first.servlet.DAO;
 
 import first.servlet.beans.UserBean;
-import first.servlet.services.LoginValidationResult;
+import first.servlet.enums.UserState;
+
+import java.util.AbstractMap;
+import java.util.Map;
 
 public class UserLoginDao
 {
+    private final Map<String, UserBean> stringUserBeanHashMap;
+
     public static UserLoginDao Empty()
     {
         return new UserLoginDao();
@@ -12,26 +17,21 @@ public class UserLoginDao
 
     private UserLoginDao()
     {
+        this.stringUserBeanHashMap = Map.ofEntries(
+                        new AbstractMap.SimpleImmutableEntry<>("user",
+                                        UserBean.USER("0", "user", "user")),
+                        new AbstractMap.SimpleImmutableEntry<>("admin",
+                                        UserBean.CREATE("1", "admin", "admin", UserState.ADMIN))
+        );
     }
 
-    public LoginValidationResult login(String userEmail, String userPassword)
+    public UserBean login(String name, String userPassword)
     {
-        if ("".equals(userEmail) || "".equals(userPassword))
+        UserBean user = this.stringUserBeanHashMap.getOrDefault(name, null);
+        if (user != null)
         {
-            return LoginValidationResult.Status(false);
+            return userPassword.equals(user.getPassword()) ? user : null;
         }
-
-        if ("admin@admin.pl".equals(userEmail) || "admin".equals(userEmail) && "admin".equals(userPassword))
-        {
-            return LoginValidationResult.Create(true);
-        }
-
-        return LoginValidationResult.Status(false);
-    }
-
-    public UserBean getUserDetails(String userEmail, String userPassword)
-    {
-        // TODO:
         return null;
     }
 }

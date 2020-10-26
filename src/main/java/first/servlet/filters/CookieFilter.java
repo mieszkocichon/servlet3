@@ -27,7 +27,7 @@ public class CookieFilter implements Filter
         HttpServletRequest req = (HttpServletRequest) request;
         try
         {
-            Object userObj = req.getSession().getAttribute("loggedUser");
+            Object userObj = req.getSession().getAttribute("user_logged");
             if (userObj == null)
             {
                 throw new Exception("Unauthorized user");
