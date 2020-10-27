@@ -10,7 +10,7 @@ import java.io.IOException;
 public class CORSFilter implements Filter
 {
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException
+    public void init(FilterConfig filterConfig)
     {
     }
 
@@ -20,8 +20,7 @@ public class CORSFilter implements Filter
     {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
-        resp.setHeader("Access-Control-Allow-Origin",
-                        "http://localhost:3000");
+        resp.setHeader("Access-Control-Allow-Origin","http://localhost:3000");
         resp.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS, GET, DELETE");
         resp.setHeader("Access-Control-Allow-Credentials", "true");
         resp.setHeader("Access-Control-Allow-Headers",

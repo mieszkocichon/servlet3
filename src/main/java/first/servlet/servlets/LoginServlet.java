@@ -80,7 +80,7 @@ public class LoginServlet extends HttpServlet
     private void buildSuccessResponse(HttpServletResponse resp, UserBean userBean)
                     throws IOException
     {
-        String userIdBase64 = Cryptography.getBase64FromString(userBean.getName());
+        String userIdBase64 = Cryptography.base64EncodeToString(userBean.getName());
         Response response = Response.Default("success", 200);
 
         gson.toJson(response, resp.getWriter());

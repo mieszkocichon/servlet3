@@ -6,7 +6,6 @@ import first.servlet.exceptions.ExceptionResponse;
 import first.servlet.responses.GetDashboardReponse;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,14 +21,14 @@ public class Dashboard extends HttpServlet
     private Gson gson;
 
     @Override
-    public void init() throws ServletException
+    public void init()
     {
         this.gson = new Gson();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-                    throws ServletException, IOException
+                    throws IOException
     {
         response.setContentType("application/json;charset=UTF-8");
 
@@ -50,14 +49,12 @@ public class Dashboard extends HttpServlet
             gson.toJson(exResponse, response.getWriter());
 
             response.getWriter().write(exResponse.toString());
-
-            return;
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-                    throws ServletException, IOException
+                    throws IOException
     {
         List<BookBean> books = (List<BookBean>) req.getServletContext().getAttribute("all_books");
 
