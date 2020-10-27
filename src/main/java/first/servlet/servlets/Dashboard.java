@@ -3,7 +3,6 @@ package first.servlet.servlets;
 import com.google.gson.Gson;
 import first.servlet.beans.BookBean;
 import first.servlet.exceptions.ExceptionResponse;
-import first.servlet.requests.BookRequest;
 import first.servlet.responses.GetDashboardReponse;
 
 import javax.servlet.ServletContext;
@@ -13,17 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * GET - pobranie wszystkich książek
- * POST - dodanie nowej książki
- * DELETE - (/dashboard/id) - usuniecie ksiazki o podanym id (wraz z zwróceniem elementu usunietego)
- */
 @WebServlet("/dashboard")
 public class Dashboard extends HttpServlet
 {
@@ -78,27 +70,6 @@ public class Dashboard extends HttpServlet
         GetDashboardReponse res = new GetDashboardReponse(Collections.singletonList(bookBean), 200);
         gson.toJson(res, resp.getWriter());
         resp.getWriter().write(res.toString());
-
-        // Exception
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
-                    throws ServletException, IOException
-    {
-        // wyciągnąć wspólną część dla doDelete i doPost
-        List<BookBean> books = (List<BookBean>) req.getServletContext().getAttribute("all_books");
-
-        String parameters = req.getReader().lines().collect(Collectors.joining());
-        BookBean bookBean = gson.fromJson(parameters, BookBean.class);
-
-//        books = books.stream().filter(e -> e.equals())
-        req.getServletContext().setAttribute("all_books", books);
-
-        GetDashboardReponse res = new GetDashboardReponse(Collections.singletonList(bookBean), 200);
-        gson.toJson(res, resp.getWriter());
-        resp.getWriter().write(res.toString());
-
     }
 
     private List<BookBean> getBooksFromContext(ServletContext servletContext)

@@ -2,7 +2,6 @@ package first.servlet.servlets;
 
 import com.google.gson.Gson;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -38,14 +37,14 @@ public class LoginServlet extends HttpServlet
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-                    throws IOException, ServletException
+                    throws IOException
     {
         resp.sendRedirect("/login.html");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-                    throws IOException, ServletException
+                    throws IOException
     {
         resp.setContentType("application/json;charset=UTF-8");
 
@@ -76,31 +75,6 @@ public class LoginServlet extends HttpServlet
         }
 
         this.buildSuccessResponse(resp, userBean);
-
-
-        // TODO: Dopisać logikę logowania
-        // TODO: Sprawdzić czy admin czy klient - inna metoda obslugi logowania dla obu - do odpoiwedzi dodać ciasteczko, gdzie kluczem jest userIda wartością base64 z loginu
-        //        resp.setContentType("text/html");
-        //
-        //        String userEmail = req.getParameter("email");
-        //        String userPassword = req.getParameter("password");
-        //
-        //        UserLoginBean userLoginBean = userLoginDao.getUserDetails(userEmail, userPassword);
-        //        if (userLoginBean != null)
-        //        {
-        //            if (UserState.ADMIN.equals(userLoginBean.getUserState()))
-        //            {
-        //                req.getRequestDispatcher("/adminlogin").forward(req, resp);
-        //            }
-        //            else
-        //            {
-        //                req.getRequestDispather("/user").forward(req, resp);
-        //            }
-        //        }c
-        //        else
-        //        {
-        //            resp.sendRedirect("/loginFailed.html");
-        //        }
     }
 
     private void buildSuccessResponse(HttpServletResponse resp, UserBean userBean)
