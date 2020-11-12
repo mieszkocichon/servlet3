@@ -2,6 +2,7 @@ package first.servlet.servlets;
 
 import com.google.gson.Gson;
 import first.servlet.beans.BookBean;
+import first.servlet.enums.ResponseErrors;
 import first.servlet.exceptions.ExceptionResponse;
 import first.servlet.responses.GetDashboardReponse;
 
@@ -35,7 +36,7 @@ public class Dashboard extends HttpServlet
         try
         {
             List<BookBean> books = getBooksFromContext(request.getServletContext());
-            GetDashboardReponse res = new GetDashboardReponse(books, 200);
+            GetDashboardReponse res = new GetDashboardReponse(books, ResponseErrors.OK.getStatus());
             gson.toJson(res, response.getWriter());
             response.getWriter().write(response.toString());
         }
@@ -43,8 +44,10 @@ public class Dashboard extends HttpServlet
         {
             ExceptionResponse exResponse = new ExceptionResponse();
             exResponse.setMessage(ex.getLocalizedMessage());
-            exResponse.setStatus(500);
-            response.setStatus(500);
+
+            int status = ResponseErrors.INTERNAL_SERVER_ERROR.getStatus();
+            exResponse.setStatus(status);
+            response.setStatus(status);
 
             gson.toJson(exResponse, response.getWriter());
 

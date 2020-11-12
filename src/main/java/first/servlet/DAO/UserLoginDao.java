@@ -5,6 +5,7 @@ import first.servlet.enums.UserState;
 
 import java.util.AbstractMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class UserLoginDao
 {
@@ -25,13 +26,28 @@ public class UserLoginDao
         );
     }
 
+    public UserState checkUserRole(String name)
+    {
+        UserBean user = getUserBean(name);
+        if (Objects.nonNull(user))
+        {
+            return user.getUserState();
+        }
+        return null;
+    }
+
     public UserBean login(String name, String userPassword)
     {
-        UserBean user = this.stringUserBeanHashMap.getOrDefault(name, null);
-        if (user != null)
+        UserBean user = getUserBean(name);
+        if (Objects.nonNull(user))
         {
             return userPassword.equals(user.getPassword()) ? user : null;
         }
         return null;
+    }
+
+    private UserBean getUserBean(String name)
+    {
+        return this.stringUserBeanHashMap.getOrDefault(name, null);
     }
 }
