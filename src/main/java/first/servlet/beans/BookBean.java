@@ -16,6 +16,7 @@ public class BookBean
 
     public static BookBean Create(String name, String author, long year)
     {
+        // 12
         return new BookBean(ThreadLocalRandom.current().nextInt(20) + 1 + "", name, author, year);
     }
 

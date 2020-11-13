@@ -24,6 +24,7 @@ public class DashboardDetails extends HttpServlet
         this.gson = new Gson();
     }
 
+    // 10
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
                     throws IOException

@@ -51,12 +51,13 @@ public class CookieFilter implements Filter
             }
             if (((UserBean) userObj).getUserState().equals(UserState.USER))
             {
+                // 11
                 if ("DELETE".equals(req.getMethod()) || "POST".equals(req.getMethod()))
                 {
                     Gson gson = new Gson();
                     ExceptionResponse exResponse = new ExceptionResponse();
                     exResponse.setMessage("Unautorized");
-                    exResponse.setStatus(500);
+                    exResponse.setStatus(ResponseErrors.INTERNAL_SERVER_ERROR.getStatus());
 
                     gson.toJson(exResponse, response.getWriter());
 
@@ -75,8 +76,7 @@ public class CookieFilter implements Filter
             ExceptionResponse exResponse = new ExceptionResponse();
             exResponse.setMessage(ex.getLocalizedMessage());
 
-            ResponseErrors responseError = ResponseErrors.UNAUTORIZED;
-            int statusError = responseError.getStatus();
+            int statusError = ResponseErrors.UNAUTORIZED.getStatus();
 
             exResponse.setStatus(statusError);
             ((HttpServletResponse) response).setStatus(statusError);
