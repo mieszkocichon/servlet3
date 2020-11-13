@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet
             loginRequest = gson.fromJson(parameters, LoginRequest.class);
 
             UserState userRole = userLoginDao.checkUserRole(loginRequest.getUsername());
-            if (Objects.nonNull(userRole))
+            if (Objects.isNull(userRole))
             {
                 throw new IllegalArgumentException("User doesn't exist.");
             }
@@ -140,7 +140,7 @@ public class LoginServlet extends HttpServlet
 
     private void throwUserIsNotExists(UserBean userBean)
     {
-        if (userBean == null)
+        if (Objects.isNull(userBean))
         {
             this.responseStatus = ResponseErrors.BAD_REQUEST;
             throw new IllegalArgumentException("User is not exists.");

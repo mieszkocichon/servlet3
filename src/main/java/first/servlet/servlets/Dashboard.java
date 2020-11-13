@@ -37,6 +37,7 @@ public class Dashboard extends HttpServlet
         {
             List<BookBean> books = getBooksFromContext(request.getServletContext());
             GetDashboardReponse res = new GetDashboardReponse(books, ResponseErrors.OK.getStatus());
+
             gson.toJson(res, response.getWriter());
             response.getWriter().write(response.toString());
         }
@@ -50,7 +51,6 @@ public class Dashboard extends HttpServlet
             response.setStatus(status);
 
             gson.toJson(exResponse, response.getWriter());
-
             response.getWriter().write(exResponse.toString());
         }
     }
